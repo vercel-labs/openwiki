@@ -1,0 +1,11 @@
+.env*.local
+.eve
+.next
+.openwiki
+.swc
+.turbo
+.vercel/output
+.workflow-data
+dist
+node_modules
+*.tsbuildinfo

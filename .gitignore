@@ -1,0 +1,17 @@
+.vercel
+.env*.local
+node_modules
+.turbo
+
+# Build output
+.next
+dist
+.output
+*.tsbuildinfo
+.eve
+.openwiki
+.workflow-data
+.swc
+
+# Local scaffold generated before monorepo setup.
+openwiki/
