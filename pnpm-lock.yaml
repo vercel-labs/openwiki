@@ -39,8 +39,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       eve:
-        specifier: latest
-        version: 0.9.3(@opentelemetry/api@1.9.0)(@vercel/blob@2.5.0)(@vercel/functions@3.5.0(@aws-sdk/credential-provider-web-identity@3.972.13))(ai@7.0.0-beta.178(zod@4.4.2))(chokidar@5.0.0)(dotenv@17.4.2)(just-bash@3.0.1)(microsandbox@0.5.7)(next@16.2.9(@opentelemetry/api@1.9.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
+        specifier: 0.17.1
+        version: 0.17.1(@opentelemetry/api@1.9.0)(@vercel/blob@2.5.0)(@vercel/functions@3.5.0(@aws-sdk/credential-provider-web-identity@3.972.13))(ai@7.0.0-beta.178(zod@4.4.2))(chokidar@5.0.0)(dotenv@17.4.2)(just-bash@3.0.1)(microsandbox@0.5.7)(next@16.2.9(@opentelemetry/api@1.9.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)
       lucide-react:
         specifier: ^1.16.0
         version: 1.18.0(react@19.2.6)
@@ -2274,14 +2274,14 @@ packages:
   estree-util-is-identifier-name@3.0.0:
     resolution: {integrity: sha512-hFtqIDZTIUZ9BXLb8y4pYGyk6+wekIivNVTcmvk8NoOh+VeRn5y6cEHzbURrWbfp1fIqdVipilzj+lfaadNZmg==}
 
-  eve@0.9.3:
-    resolution: {integrity: sha512-cNd4Szc+iLCTPfyitiwY2+ddQjUcJTyBT88Ov/TVMkMPI48V8YeyMKa70hYbxNQ6eNEP6KeCu60jqW5BHZ8pJQ==}
+  eve@0.17.1:
+    resolution: {integrity: sha512-EI9+ohx9VMoYeoDXGGJqmrGbH0+tH5WH+hWWOBusx+pDD6ounZ8qyDL1UWIcSr1MR2lpXmaIWUPiTHOeqK7eQg==}
     engines: {node: '>=24'}
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.0.0
       '@sveltejs/kit': ^2.0.0
-      ai: 7.0.0-beta.178
+      ai: ^7.0.0
       braintrust: ^3.0.0
       just-bash: ^3.0.0
       microsandbox: ^0.5.0
@@ -5775,11 +5775,10 @@ snapshots:
 
   estree-util-is-identifier-name@3.0.0: {}
 
-  eve@0.9.3(@opentelemetry/api@1.9.0)(@vercel/blob@2.5.0)(@vercel/functions@3.5.0(@aws-sdk/credential-provider-web-identity@3.972.13))(ai@7.0.0-beta.178(zod@4.4.2))(chokidar@5.0.0)(dotenv@17.4.2)(just-bash@3.0.1)(microsandbox@0.5.7)(next@16.2.9(@opentelemetry/api@1.9.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6):
+  eve@0.17.1(@opentelemetry/api@1.9.0)(@vercel/blob@2.5.0)(@vercel/functions@3.5.0(@aws-sdk/credential-provider-web-identity@3.972.13))(ai@7.0.0-beta.178(zod@4.4.2))(chokidar@5.0.0)(dotenv@17.4.2)(just-bash@3.0.1)(microsandbox@0.5.7)(next@16.2.9(@opentelemetry/api@1.9.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6):
     dependencies:
       ai: 7.0.0-beta.178(zod@4.4.2)
       nitro: 3.0.260610-beta(@vercel/blob@2.5.0)(@vercel/functions@3.5.0(@aws-sdk/credential-provider-web-identity@3.972.13))(chokidar@5.0.0)(dotenv@17.4.2)
-      semver: 7.8.4
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       just-bash: 3.0.1
@@ -7040,7 +7039,8 @@ snapshots:
     dependencies:
       commander: 6.2.1
 
-  semver@7.8.4: {}
+  semver@7.8.4:
+    optional: true
 
   sharp@0.34.5:
     dependencies:
