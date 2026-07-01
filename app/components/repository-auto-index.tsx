@@ -14,11 +14,13 @@ type IndexJob = {
 };
 
 const repositoryGenerationRateLimitedCode = "repository_generation_rate_limited";
+const repositoryCreationDisabledCode = "repository_creation_disabled";
 
 export function RepositoryAutoIndex({ repoLabel, repoUrl }: RepositoryAutoIndexProps) {
   const router = useRouter();
   const startedRepoUrl = useRef<string | null>(null);
   const [job, setJob] = useState<IndexJob | null>(null);
+  const [creationDisabledMessage, setCreationDisabledMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [rateLimitMessage, setRateLimitMessage] = useState<string | null>(null);
   const [startAttempt, setStartAttempt] = useState(0);
@@ -61,6 +63,15 @@ export function RepositoryAutoIndex({ repoLabel, repoUrl }: RepositoryAutoIndexP
           if (payload.code === repositoryGenerationRateLimitedCode) {
             if (!isActive) return;
             setRateLimitMessage(payload.error ?? "Wiki generation is rate limited. Try again later.");
+            setCreationDisabledMessage(null);
+            setError(null);
+            setJob(null);
+            return;
+          }
+          if (payload.code === repositoryCreationDisabledCode) {
+            if (!isActive) return;
+            setCreationDisabledMessage(payload.error ?? "Repository creation is disabled for this OpenWiki deployment.");
+            setRateLimitMessage(null);
             setError(null);
             setJob(null);
             return;
@@ -75,11 +86,13 @@ export function RepositoryAutoIndex({ repoLabel, repoUrl }: RepositoryAutoIndexP
         }
 
         setJob(payload.job);
+        setCreationDisabledMessage(null);
         setError(null);
         setRateLimitMessage(null);
       } catch (caught) {
         if (!isActive) return;
         setError(caught instanceof Error ? caught.message : "Could not start wiki generation.");
+        setCreationDisabledMessage(null);
         setRateLimitMessage(null);
       }
     }
@@ -93,6 +106,7 @@ export function RepositoryAutoIndex({ repoLabel, repoUrl }: RepositoryAutoIndexP
 
   const restartIndexing = useCallback(() => {
     startedRepoUrl.current = null;
+    setCreationDisabledMessage(null);
     setError(null);
     setRateLimitMessage(null);
     setJob(null);
@@ -106,6 +120,18 @@ export function RepositoryAutoIndex({ repoLabel, repoUrl }: RepositoryAutoIndexP
         isLoading={false}
         repoLabel={repoLabel}
         stateLabel="Wiki generation is rate limited"
+        tone="muted"
+      />
+    );
+  }
+
+  if (creationDisabledMessage !== null) {
+    return (
+      <WikiGenerationState
+        detail={creationDisabledMessage}
+        isLoading={false}
+        repoLabel={repoLabel}
+        stateLabel="Wiki generation disabled"
         tone="muted"
       />
     );

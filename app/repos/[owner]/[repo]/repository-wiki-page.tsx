@@ -13,10 +13,15 @@ import {
   isStorageConfigurationError,
 } from "@/app/lib/storage-error";
 import { getGitHubOwnerAvatarFallbackUrl, getRepoHref } from "@/lib/github-repo-url";
+import {
+  isRepositoryCreationDisabled,
+  repositoryCreationDisabledMessage,
+} from "@/lib/repository-creation";
 import { OpenWikiNavbar } from "@/app/components/openwiki-navbar";
 import { MobileWikiNav } from "@/app/components/mobile-wiki-nav";
 import { PersistentScrollArea } from "@/app/components/persistent-scroll-area";
 import { CopyMarkdownButton } from "@/app/components/copy-markdown-button";
+import { WikiGenerationState } from "@/app/components/index-job-progress";
 import { RepositoryAutoIndex } from "@/app/components/repository-auto-index";
 import { RepoChat } from "@/app/components/repo-chat";
 import { WikiMarkdown } from "@/app/components/wiki-markdown";
@@ -77,7 +82,11 @@ export async function RepositoryWikiPage({
       <main className="h-screen overflow-hidden bg-background text-foreground">
         <OpenWikiNavbar repo={navbarRepo} />
         <section className="mt-10 grid h-[calc(100vh-2.5rem)] place-items-center px-6">
-          <RepositoryAutoIndex repoLabel={repoLabel} repoUrl={repoUrl} />
+          {isRepositoryCreationDisabled() ? (
+            <RepositoryCreationDisabledState repoLabel={repoLabel} />
+          ) : (
+            <RepositoryAutoIndex repoLabel={repoLabel} repoUrl={repoUrl} />
+          )}
         </section>
       </main>
     );
@@ -117,7 +126,11 @@ export async function RepositoryWikiPage({
 
         <article className="min-w-0 pb-28 lg:h-full lg:overflow-y-auto lg:pt-10 lg:pb-32">
           {currentPage === null ? (
-            <RepositoryAutoIndex repoLabel={repoLabel} repoUrl={repoUrl} />
+            isRepositoryCreationDisabled() ? (
+              <RepositoryCreationDisabledState repoLabel={repoLabel} />
+            ) : (
+              <RepositoryAutoIndex repoLabel={repoLabel} repoUrl={repoUrl} />
+            )
           ) : (
             <section>
               <WikiMarkdown
@@ -164,6 +177,18 @@ export async function RepositoryWikiPage({
         </aside>
       </div>
     </main>
+  );
+}
+
+function RepositoryCreationDisabledState({ repoLabel }: { repoLabel: string }) {
+  return (
+    <WikiGenerationState
+      detail={repositoryCreationDisabledMessage}
+      isLoading={false}
+      repoLabel={repoLabel}
+      stateLabel="Wiki generation disabled"
+      tone="muted"
+    />
   );
 }
 

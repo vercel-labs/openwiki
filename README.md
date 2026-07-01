@@ -95,6 +95,12 @@ Recommended:
 | --- | --- |
 | `GITHUB_TOKEN` | Raises GitHub API limits for public repositories. Use a token without private repository access on public deployments. |
 
+Optional public access control:
+
+| Name | Purpose |
+| --- | --- |
+| `OPENWIKI_DISABLE_REPOSITORY_CREATION` | Set to `1` to keep public repository creation read-only. Existing indexed wikis stay readable, but unknown or unindexed repository routes will not create DB rows or start wiki generation. |
+
 These settings can be tuned for generation quality, cost, public rate limits, and refresh cadence. The defaults are meant to work well for a hosted demo or a fresh clone.
 
 Optional model tuning:

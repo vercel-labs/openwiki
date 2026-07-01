@@ -15,6 +15,11 @@ import {
   RepositoryGenerationRateLimitError,
   repositoryGenerationRateLimitedCode,
 } from "@/lib/repository-generation-rate-limit";
+import {
+  isRepositoryCreationDisabled,
+  repositoryCreationDisabledCode,
+  repositoryCreationDisabledMessage,
+} from "@/lib/repository-creation";
 import { startRepositoryIndexing } from "./indexing";
 
 const createRepositorySchema = z.object({
@@ -51,6 +56,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Expected a public GitHub repository URL." }, { status: 400 });
   }
   const isConfiguredFeaturedRepository = isFeaturedRepositoryFullName(ref.fullName);
+  const repositoryCreationDisabled = isRepositoryCreationDisabled();
 
   let repository: Repository | null;
   let generationRateLimitReserved = false;
@@ -72,6 +78,10 @@ export async function POST(request: NextRequest) {
   }
 
   if (repository === null) {
+    if (repositoryCreationDisabled) {
+      return repositoryCreationDisabledResponse();
+    }
+
     let repoExists: boolean;
     try {
       repoExists = await githubRepositoryExists(ref.fullName);
@@ -108,6 +118,10 @@ export async function POST(request: NextRequest) {
       },
       { status: 200 },
     );
+  }
+
+  if (repositoryCreationDisabled) {
+    return repositoryCreationDisabledResponse();
   }
 
   try {
@@ -155,5 +169,15 @@ function repositoryGenerationRateLimitedResponse(error: RepositoryGenerationRate
       },
       status: 429,
     },
+  );
+}
+
+function repositoryCreationDisabledResponse() {
+  return Response.json(
+    {
+      code: repositoryCreationDisabledCode,
+      error: repositoryCreationDisabledMessage,
+    },
+    { status: 403 },
   );
 }
