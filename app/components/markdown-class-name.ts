@@ -1,0 +1,16 @@
+export const markdownClassName = [
+  "openwiki-markdown",
+  "text-[15px] leading-7 text-foreground",
+  "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+  "[&_h1]:mb-4 [&_h1]:text-[32px] [&_h1]:font-semibold [&_h1]:leading-tight [&_h1]:tracking-[-0.04em]",
+  "[&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:scroll-mt-20 [&_h2]:border-t [&_h2]:pt-8 [&_h2]:text-[22px] [&_h2]:font-semibold [&_h2]:leading-tight [&_h2]:tracking-[-0.03em]",
+  "[&_h3]:mb-2 [&_h3]:mt-7 [&_h3]:scroll-mt-20 [&_h3]:text-[16px] [&_h3]:font-semibold [&_h3]:leading-6",
+  "[&_p]:mb-4 [&_p]:text-muted-foreground",
+  "[&_ul]:mb-4 [&_ol]:mb-4 [&_pre]:mb-5 [&_table]:mb-5 [&_blockquote]:mb-5",
+  "[&_li]:text-muted-foreground",
+  "[&_strong]:font-medium [&_strong]:text-foreground",
+  "[&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:decoration-border [&_a]:underline-offset-4 hover:[&_a]:decoration-foreground",
+  "[&_blockquote]:border-l-2 [&_blockquote]:pl-4 [&_blockquote]:text-muted-foreground",
+  "[&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-lg [&_table]:border [&_table]:text-sm",
+  "[&_th]:border-b [&_th]:bg-muted/50 [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-medium [&_td]:border-b [&_td]:px-3 [&_td]:py-2",
+].join(" ");
